@@ -38,6 +38,7 @@ module Capybara
       # @return [Boolean]
       #
       def has_title?(title, **options)
+        options[:wait] = 0 unless session_options.predicates_wait || options.key?(:wait)
         assert_title(title, options)
       rescue Capybara::ExpectationNotMet
         false
@@ -50,6 +51,7 @@ module Capybara
       # @return [Boolean]
       #
       def has_no_title?(title, **options)
+        options[:wait] = 0 unless session_options.predicates_wait || options.key?(:wait)
         assert_no_title(title, options)
       rescue Capybara::ExpectationNotMet
         false

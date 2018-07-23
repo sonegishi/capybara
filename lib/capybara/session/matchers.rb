@@ -47,6 +47,7 @@ module Capybara
     # @return [Boolean]
     #
     def has_current_path?(path, **options)
+      options[:wait] = 0 unless config.predicates_wait || options.key?(:wait)
       assert_current_path(path, options)
     rescue Capybara::ExpectationNotMet
       false
@@ -62,6 +63,7 @@ module Capybara
     # @return [Boolean]
     #
     def has_no_current_path?(path, **options)
+      options[:wait] = 0 unless config.predicates_wait || options.key?(:wait)
       assert_no_current_path(path, options)
     rescue Capybara::ExpectationNotMet
       false

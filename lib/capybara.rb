@@ -484,6 +484,7 @@ Capybara.configure do |config|
   config.reuse_server = true
   config.default_set_options = {}
   config.test_id = nil
+  config.predicates_wait = true
 end
 
 Capybara.register_driver :rack_test do |app|

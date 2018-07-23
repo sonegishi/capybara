@@ -36,8 +36,9 @@ module Capybara
       # @option args [Range]   :between (nil)   Range of times that should contain number of times text occurs
       # @return [Boolean]                       If the expression exists
       #
-      def has_selector?(*args, &optional_filter_block)
-        assert_selector(*args, &optional_filter_block)
+      def has_selector?(*args, **options, &optional_filter_block)
+        options[:wait] = 0 unless session_options.predicates_wait || options.key?(:wait)
+        assert_selector(*args, options, &optional_filter_block)
       rescue Capybara::ExpectationNotMet
         false
       end
@@ -50,8 +51,9 @@ module Capybara
       # @param (see Capybara::Node::Finders#has_selector?)
       # @return [Boolean]
       #
-      def has_no_selector?(*args, &optional_filter_block)
-        assert_no_selector(*args, &optional_filter_block)
+      def has_no_selector?(*args, **options, &optional_filter_block)
+        options[:wait] = 0 unless session_options.predicates_wait || options.key?(:wait)
+        assert_no_selector(*args, options, &optional_filter_block)
       rescue Capybara::ExpectationNotMet
         false
       end
@@ -66,7 +68,8 @@ module Capybara
       # @return [Boolean]                       If the styles match
       #
       def has_style?(styles, **options)
-        assert_style(styles, **options)
+        options[:wait] = 0 unless session_options.predicates_wait || options.key?(:wait)
+        assert_style(styles, options)
       rescue Capybara::ExpectationNotMet
         false
       end
@@ -555,8 +558,9 @@ module Capybara
       # @param (see Capybara::Node::Finders#has_selector?)
       # @return [Boolean]
       #
-      def matches_selector?(*args, &optional_filter_block)
-        assert_matches_selector(*args, &optional_filter_block)
+      def matches_selector?(*args, **options, &optional_filter_block)
+        options[:wait] = 0 unless session_options.predicates_wait || options.key?(:wait)
+        assert_matches_selector(*args, options, &optional_filter_block)
       rescue Capybara::ExpectationNotMet
         false
       end
@@ -591,8 +595,9 @@ module Capybara
       # @param (see Capybara::Node::Finders#has_selector?)
       # @return [Boolean]
       #
-      def not_matches_selector?(*args, &optional_filter_block)
-        assert_not_matches_selector(*args, &optional_filter_block)
+      def not_matches_selector?(*args, **options, &optional_filter_block)
+        options[:wait] = 0 unless session_options.predicates_wait || options.key?(:wait)
+        assert_not_matches_selector(*args, options, &optional_filter_block)
       rescue Capybara::ExpectationNotMet
         false
       end
@@ -682,8 +687,9 @@ module Capybara
       # @macro text_query_params
       # @return [Boolean]                            Whether it exists
       #
-      def has_text?(*args)
-        assert_text(*args)
+      def has_text?(*args, **options)
+        options[:wait] = 0 unless session_options.predicates_wait || options.key?(:wait)
+        assert_text(*args, options)
       rescue Capybara::ExpectationNotMet
         false
       end
@@ -696,8 +702,9 @@ module Capybara
       # @macro text_query_params
       # @return [Boolean]  Whether it doesn't exist
       #
-      def has_no_text?(*args)
-        assert_no_text(*args)
+      def has_no_text?(*args, **options)
+        options[:wait] = 0 unless session_options.predicates_wait || options.key?(:wait)
+        assert_no_text(*args, options)
       rescue Capybara::ExpectationNotMet
         false
       end
